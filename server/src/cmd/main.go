@@ -1,52 +1,31 @@
 package main
 
 import (
-	"database/sql"
+	"context"
 	"fmt"
+	"log"
 
-	_ "github.com/go-sql-driver/mysql"
+	firebase "firebase.google.com/go"
+	"github.com/joho/godotenv"
+	"google.golang.org/api/option"
 )
+
+func init() {
+	// loads values from .env into the system
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
+}
 
 func main() {
 
-	db, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/")
+	// key, EXISTS := os.LookupEnv("KEY")
+	// if EXISTS {
+	// 	print(key)
+	// }
+	opt := option.WithCredentialsFile("./serviceAccountKey.json")
+	_, err := firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println("Database connected successfully")
-	}
-	defer db.Close()
-
-	_, err = db.Exec("CREATE DATABASE IF NOT EXISTS EasyAccess")
-
-	_, err = db.Exec("USE EasyAccess")
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println("DB selected successfully..")
-	}
-
-	stmt, err := db.Prepare("CREATE Table IF NOT EXISTS users(id int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name varchar(50), last_name varchar(30));")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	_, err = stmt.Exec()
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println("Table created successfully..")
-	}
-
-	inst, err := db.Prepare("INSERT INTO users (first_name, last_name) VALUES ('Bailey','Frederick')")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	_, err = inst.Exec()
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println("Row created successfully..")
+		print(fmt.Errorf("error initializing app: %v", err))
 	}
 }
