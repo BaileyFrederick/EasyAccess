@@ -10,13 +10,13 @@ import (
 
 func init() {
 	// loads values from .env into the system
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load(".env"); err != nil {
 		log.Print("No .env file found")
 	}
 }
 
 func main() {
-
+	print("GOPATH set up correctly amd project is working")
 	ctx := context.Background()
 
 	//creates new firebase app connection based on GOOGLE_APPLICATION_CREDENTIALS in .env file
@@ -32,7 +32,21 @@ func main() {
 	}
 	//closes client when code finishes
 	defer client.Close()
+	auth, err := app.Auth(ctx)
+	params := (&auth.UserToCreate{}).
+		Email("user@example.com").
+		EmailVerified(false).
+		PhoneNumber("+1234567890").
+		Password("secretPassword").
+		DisplayName("Donald Drump").
+		PhotoURL("http://www.example.com/12345678/photo.png").
+		Disabled(false)
 
+	u, err := client.CreateUser(ctx, params)
+	if err != nil {
+		log.Fatalf("error creating user: %v\n", err)
+	}
+	log.Printf("Successfully created user: %v\n", u)
 	p := Person{
 		Name: "Alice",
 	}
@@ -43,6 +57,6 @@ func main() {
 	}
 }
 
-type Person struct {
+type User struct {
 	Name string
 }
