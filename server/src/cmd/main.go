@@ -16,7 +16,7 @@ func init() {
 }
 
 func main() {
-	print("GOPATH set up correctly amd project is working")
+	println("GOPATH set up correctly amd project is working")
 	ctx := context.Background()
 
 	//creates new firebase app connection based on GOOGLE_APPLICATION_CREDENTIALS in .env file
@@ -32,23 +32,23 @@ func main() {
 	}
 	//closes client when code finishes
 	defer client.Close()
-	auth, err := app.Auth(ctx)
-	params := (&auth.UserToCreate{}).
-		Email("user@example.com").
-		EmailVerified(false).
-		PhoneNumber("+1234567890").
-		Password("secretPassword").
-		DisplayName("Donald Drump").
-		PhotoURL("http://www.example.com/12345678/photo.png").
-		Disabled(false)
+	// auth, err := app.Auth(ctx)
+	// params := (&auth.UserToCreate{}).
+	// 	Email("user@example.com").
+	// 	EmailVerified(false).
+	// 	PhoneNumber("+1234567890").
+	// 	Password("secretPassword").
+	// 	DisplayName("Donald Drump").
+	// 	PhotoURL("http://www.example.com/12345678/photo.png").
+	// 	Disabled(false)
 
-	u, err := client.CreateUser(ctx, params)
-	if err != nil {
-		log.Fatalf("error creating user: %v\n", err)
-	}
-	log.Printf("Successfully created user: %v\n", u)
-	p := Person{
-		Name: "Alice",
+	// u, err := client.CreateUser(ctx, params)
+	// if err != nil {
+	// 	log.Fatalf("error creating user: %v\n", err)
+	// }
+	// log.Printf("Successfully created user: %v\n", u)
+	p := User{
+		Name: "Bailey",
 	}
 	//Changes the name of the specific user based on UID to ALICE
 	_, err = client.Collection("users").Doc("755O4T422rS1CgngVpI8").Set(ctx, p)
