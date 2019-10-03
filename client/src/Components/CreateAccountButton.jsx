@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class LoginButton extends Component {
+class CreateAccountButton extends Component {
   state = {
     value: this.props.value
   };
@@ -14,10 +14,10 @@ class LoginButton extends Component {
       <div>
         <div>
           <button
-            onClick={() => this.props.onLogin(this.props.id)}
+            onClick={() => this.props.onCreateAccount(this.props.id)}
             className="btn btn-danger btn-sm m-2"
           >
-            Login
+            CreateAccount
           </button>
         </div>
       </div>
@@ -25,4 +25,4 @@ class LoginButton extends Component {
   }
 }
 
-export default LoginButton;
+export default CreateAccountButton;

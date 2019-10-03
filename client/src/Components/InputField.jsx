@@ -2,23 +2,25 @@ import React, { Component } from "react";
 
 class InputField extends Component {
   state = {
-    value: this.props.value
+    email: ""
   };
 
-  handleInputSelection = product => {
-    //set state on input field
-    //like how it reacts to typing and different mandatory input
+  handleIncrement = product => {
+    this.setState({ value: this.state.value + 1 });
+  };
+
+  changeEmailHandler = event => {
+    this.setState({ email: event.target.value });
   };
 
   render() {
     return (
       <div>
-        <form
-          onClick={() => this.handleInputSelection({ id: 1 })}
-          className="btn btn-primary btn-sm m-2"
-        >
-          <input type="text" name="FirstName" value="Mickey"></input>
-        </form>
+        <input
+          type="text"
+          value={this.state.email}
+          onChange={this.changeEmailHandler}
+        ></input>
       </div>
     );
   }
