@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 class MainSelection extends Component {
   state = {};
+  //look at page routing
   render() {
     return (
       <div>
