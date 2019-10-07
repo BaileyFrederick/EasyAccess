@@ -1,7 +1,11 @@
 # EasyAccess
 
 welcome to our EasyAccess repo!!
+To start the react app
+run "npm start" in client directory
 
+To start go server
+run "go run main.go" in server/src/cmd directory
 
 
 type student struct {
