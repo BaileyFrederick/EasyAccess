@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import LoginButton from "./LoginButton";
-import CreateAccountButton from "./CreateAccountButton";
 //import InputField from "./InputField";
 import fire from "./config/fire";
 
@@ -8,6 +6,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleCreateAccountClick = this.handleCreateAccountClick.bind(this);
     this.changeInputHandlerUser = this.changeInputHandlerUser.bind(this);
     this.changeInputHandlerPass = this.changeInputHandlerPass.bind(this);
   }
@@ -16,9 +15,7 @@ class Login extends Component {
     buttonLogin: [{ id: 1, value: "test" }],
     buttonCreateAccount: [{ id: 1, value: "test" }],
     inputuser: "",
-    inputpass: "",
-    fieldInputLogin: [],
-    fieldInputCreateAccount: []
+    inputpass: ""
   };
 
   // handleLoginClick = loginButtonID => {
@@ -48,21 +45,37 @@ class Login extends Component {
       });
   }
 
-  handleCreateAccountClick = createButtonID => {
-    const buttonCreateAccount = this.state.buttonCreateAccount.filter(function(
-      c
-    ) {
-      return c.id !== createButtonID;
-    });
-    const fieldInputCreateAccount = [
-      { id: 1, value: "test" },
-      { id: 2, value: "test" }
-    ];
-    const buttonLogin = [];
-    this.setState({ buttonLogin });
-    this.setState({ fieldInputCreateAccount });
-    this.setState({ buttonCreateAccount });
-  };
+  handleCreateAccountClick(e) {
+    e.preventDefault();
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(
+        this.state.inputuser,
+        this.state.inputpass
+      )
+      .then(u => {
+        console.log("sucessful creation of account!!!");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  // handleCreateAccountClick = createButtonID => {
+  //   const buttonCreateAccount = this.state.buttonCreateAccount.filter(function(
+  //     c
+  //   ) {
+  //     return c.id !== createButtonID;
+  //   });
+  //   const fieldInputCreateAccount = [
+  //     { id: 1, value: "test" },
+  //     { id: 2, value: "test" }
+  //   ];
+  //   const buttonLogin = [];
+  //   this.setState({ buttonLogin });
+  //   this.setState({ fieldInputCreateAccount });
+  //   this.setState({ buttonCreateAccount });
+  // };
 
   changeInputHandlerUser = event => {
     this.setState({ inputuser: event.target.value });
@@ -93,15 +106,7 @@ class Login extends Component {
           ></input>
         </div>
         <button onClick={this.handleLoginClick}>Login</button>
-        <div>
-          {this.state.buttonCreateAccount.map(buttonCreateAccount => (
-            <CreateAccountButton
-              key={buttonCreateAccount.id}
-              id={buttonCreateAccount.id}
-              onCreateAccount={this.handleCreateAccountClick}
-            ></CreateAccountButton>
-          ))}
-        </div>
+        <button onClick={this.handleCreateAccountClick}>Create Account</button>
       </div>
     );
   }

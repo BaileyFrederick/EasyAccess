@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class InputField extends Component {
   state = {
-    input: this.props.fieldInputLogin.value
+    input: ""
   };
 
   changeInputHandler = event => {

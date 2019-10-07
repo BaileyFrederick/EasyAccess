@@ -1,8 +1,20 @@
 import React, { Component } from "react";
 import fire from "./config/fire";
+import CreateNewAccount from "./CreateNewAccount";
+import MainSelection from "./MainSelection";
 
 class Home extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+  }
+
+  state = {
+    //do call to database at beginning to see if created input
+    //if so ask user for input
+    //do in constructor!!!
+    createAccount: true,
+    inputFields: []
+  };
 
   logout() {
     fire.auth().signOut();
@@ -11,7 +23,14 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <div>Home</div>
+        <div className="">
+          {" "}
+          {this.state.createAccount == false ? (
+            <CreateNewAccount />
+          ) : (
+            <MainSelection />
+          )}
+        </div>
         <button onClick={this.logout}>Logout</button>
       </div>
     );
