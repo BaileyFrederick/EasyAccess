@@ -2,15 +2,11 @@ import React, { Component } from "react";
 
 class InputField extends Component {
   state = {
-    email: ""
+    input: this.props.fieldInputLogin.value
   };
 
-  handleIncrement = product => {
-    this.setState({ value: this.state.value + 1 });
-  };
-
-  changeEmailHandler = event => {
-    this.setState({ email: event.target.value });
+  changeInputHandler = event => {
+    this.setState({ input: event.target.value });
   };
 
   render() {
@@ -18,8 +14,8 @@ class InputField extends Component {
       <div>
         <input
           type="text"
-          value={this.state.email}
-          onChange={this.changeEmailHandler}
+          value={this.state.input}
+          onChange={this.changeInputHandler}
         ></input>
       </div>
     );

@@ -69,8 +69,8 @@ class Login extends Component {
           ))}
         </div>
         <div>
-          {this.state.fieldInputLogin.map(inputL => (
-            <InputField />
+          {this.state.fieldInputLogin.map(fieldInputLogin => (
+            <InputField key={fieldInputLogin.id} />
           ))}
         </div>
         <div>
