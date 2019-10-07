@@ -27,14 +27,12 @@ func (h *Handler) authUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var msg Message
-	err = json.Unmarshal(body, &msg)
+	var idToken string
+	err = json.Unmarshal(body, &idToken)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-
-	log.Println(msg)
 
 	conf := &firebase.Config{ProjectID: ProjectId}
 	app, err := firebase.NewApp(ctx, conf)
@@ -49,15 +47,16 @@ func (h *Handler) authUser(w http.ResponseWriter, r *http.Request) {
 	defer client.Close()
 
 	auth, err := app.Auth(ctx)
-	userRecord, err := auth.GetUser(ctx, msg.UID)
-	// var idToken string
+	if err != nil {
+		log.Fatalln(err)
+	}
+	token, err := client.VerifyIDTokenAndCheckRevoked(ctx, idToken)
+	if err != nil {
+		log.Fatalf("error verifying ID token: %v\n", err)
+	}
 
-	// token, err := client.VerifyIDTokenAndCheckRevoked(ctx, idToken)
-	// if err != nil {
-	// 	log.Fatalf("error verifying ID token: %v\n", err)
-	// }
-	// user, err := client.GetUser(ctx, token.UID)
-	output, err := json.Marshal(userRecord)
+	userInfo, err := client.Collection("users").Doc(token.UID).Get(ctx)
+	output, err := json.Marshal(userInfo.Data())
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
