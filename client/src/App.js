@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import fire from "./Components/config/fire";
+import Login from "./Components/Login";
+import Home from "./Components/Home";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+
+    this.authListener = this.authListener.bind(this);
+  }
+
+  state = {
+    user: null
+  };
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        console.log("user getting set");
+      } else {
+        this.setState({ user: null });
+      }
+    });
+  }
+
+  render() {
+    return (
+      <div className=""> {this.state.user == null ? <Login /> : <Home />}</div>
+    );
+  }
 }
 
 export default App;
