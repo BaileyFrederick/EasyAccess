@@ -1,13 +1,25 @@
 # EasyAccess
 
 welcome to our EasyAccess repo!!
-To start the react app
-run "npm start" in client directory
 
-To start go server
-run "go run main.go" in server/src/cmd directory
+# To start the react app
 
+run in client directory
 
+```bash
+npm start
+```
+
+# To start go server
+
+run in server/src/cmd directory
+
+```bash
+go run main.go
+```
+
+# structs
+```bash
 type student struct {
 	UID            string   `json:"uid"`
 	Name           string   `json:"name"`
@@ -27,3 +39,4 @@ type student struct {
 	Zip            string   `json:"zip"`
 	Matches        []string `json:"matches"`
 }
+```
