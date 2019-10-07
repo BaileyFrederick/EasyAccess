@@ -47,7 +47,7 @@ func New(c Config) (*Handler, error) {
 
 	r.Route("/", func(r chi.Router) {
 		// set up routes
-		r.Get("/user", h.authUser)
+		r.Post("/user", h.authUser)
 	})
 	r.Get("/health", h.health)
 
