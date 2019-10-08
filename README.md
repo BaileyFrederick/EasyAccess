@@ -15,6 +15,7 @@ npm start
 run in server/src/cmd directory
 
 ```bash
+cd server/src/cmd
 go run main.go
 ```
 
