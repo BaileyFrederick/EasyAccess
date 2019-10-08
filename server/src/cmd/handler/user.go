@@ -23,6 +23,7 @@ func (h *Handler) authUser(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
+		log.Println("1")
 		http.Error(w, err.Error(), 500)
 		return
 	}
@@ -30,6 +31,7 @@ func (h *Handler) authUser(w http.ResponseWriter, r *http.Request) {
 	var idToken string
 	err = json.Unmarshal(body, &idToken)
 	if err != nil {
+		log.Println("2")
 		http.Error(w, err.Error(), 500)
 		return
 	}
@@ -46,18 +48,19 @@ func (h *Handler) authUser(w http.ResponseWriter, r *http.Request) {
 	}
 	defer client.Close()
 
-	auth, err := app.Auth(ctx)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	token, err := client.VerifyIDTokenAndCheckRevoked(ctx, idToken)
-	if err != nil {
-		log.Fatalf("error verifying ID token: %v\n", err)
-	}
+	// auth, err := app.Auth(ctx)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// token, err := client.VerifyIDTokenAndCheckRevoked(ctx, idToken)
+	// if err != nil {
+	// 	log.Fatalf("error verifying ID token: %v\n", err)
+	// }
 
-	userInfo, err := client.Collection("users").Doc(token.UID).Get(ctx)
-	output, err := json.Marshal(userInfo.Data())
+	// userInfo, err := client.Collection("users").Doc(token.UID).Get(ctx)
+	output, err := json.Marshal(body)
 	if err != nil {
+		log.Println("3")
 		http.Error(w, err.Error(), 500)
 		return
 	}

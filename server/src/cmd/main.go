@@ -78,7 +78,7 @@ func setHandler() error {
 
 	server := &http.Server{
 		Handler: h,
-		Addr:    fmt.Sprintf(":%d", 3001),
+		Addr:    fmt.Sprintf(":%d", 3000),
 	}
 
 	// do graceful server shutdown
