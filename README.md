@@ -19,6 +19,14 @@ cd server/src/cmd
 go run main.go
 ```
 
+Once your terminal says "INFO[0001] listening on port 3000" you're good
+
+
+# Http Requests
+```bash
+/user - POST request.body(idToken from firebase.auth.signinwithEmailandPasword)
+```
+
 # structs
 ```bash
 type student struct {
