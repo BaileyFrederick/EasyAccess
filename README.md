@@ -25,6 +25,7 @@ Once your terminal says "INFO[0001] listening on port 3000" you're good
 # Http Requests
 ```bash
 /user - POST request.body(idToken from firebase.auth.signinwithEmailandPasword)
+	you will get back a student struct
 ```
 
 # structs
