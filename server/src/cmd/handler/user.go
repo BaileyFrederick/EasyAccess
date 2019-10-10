@@ -56,15 +56,17 @@ func (h *Handler) authUser(w http.ResponseWriter, r *http.Request) {
 	// if err != nil {
 	// 	log.Fatalf("error verifying ID token: %v\n", err)
 	// }
-
-	// userInfo, err := client.Collection("users").Doc(token.UID).Get(ctx)
-	output, err := json.Marshal(body)
+	
+	userInfo, err := client.Collection("users").Doc(idToken).Get(ctx)
+	//userInfo, err := client.Collection("users").Doc(token.UID).Get(ctx)
+	output, err := json.Marshal(userInfo.Data())
 	if err != nil {
 		log.Println("3")
 		http.Error(w, err.Error(), 500)
 		return
 	}
 	w.Header().Set("content-type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(output)
 	return
 }
