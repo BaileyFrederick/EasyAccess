@@ -17,21 +17,12 @@ class MainSelection extends Component {
   }
 
   getData(){
-    console.log("in get data")
     var xhr = new XMLHttpRequest()
     xhr.addEventListener('load', () => {
-       console.log("response text=" + xhr.response) 
        this.setState({...this.state, userInfo: JSON.parse(xhr.response)})
        console.log("user info = " + this.state.userInfo)
-       //console.log(this.state.userInfo.)
-       //console.log("json response text= " + JSON.parse(xhr.response).Name)
     })
-    //this does the same as adding load as an event listener 
-    // xhr.onload = function() {
-    //   console.log("in on load" + this.responseText)
-    // }
     xhr.open('POST', 'http://localhost:3001/user', true)
-    //console.log(JSON.stringify(fire.auth().currentUser.uid))
     xhr.send(JSON.stringify(fire.auth().currentUser.uid))
   }
 
@@ -39,7 +30,6 @@ class MainSelection extends Component {
     e.preventDefault();
     this.setState({...this.state, isEmptyState: false, isAccountInfoState: true})
     this.getData()
-    console.log("in account info click")
   }
 
   //look at page routing
@@ -54,7 +44,7 @@ class MainSelection extends Component {
           <button onClick={this.handleAccountInfoClick}>Account Info</button> 
         </div>
         }
-        {this.state.isAccountInfoState && <AccountInfo userInfo={this.state.userInfo}/>}
+        {this.state.isAccountInfoState && <AccountInfo userInfo={(this.state.userInfo===null) ? null : this.state.userInfo}/>}
       </div>
     );
   }
