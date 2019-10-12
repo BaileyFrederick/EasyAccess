@@ -12,7 +12,7 @@ class Home extends Component {
     //do call to database at beginning to see if created input
     //if so ask user for input
     //do in constructor!!!
-    createAccount: true,
+    createAccount: false,
     inputFields: []
   };
 
