@@ -21,11 +21,12 @@ class Home extends Component {
   }
 
   render() {
+    //console.log("checkAccount=" + this.props.checkAccountCreated)
     return (
       <div>
         <div className="">
           {" "}
-          {this.state.createAccount == false ? (
+          {this.props.checkAccountCreated == false ? (
             <CreateNewAccount />
           ) : (
             <MainSelection />

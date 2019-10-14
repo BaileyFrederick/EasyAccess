@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-//import InputField from "./InputField";
+import logo from "./images/EasyAccessLogo.png";
+import title from "./images/EasyAccessTitle.svg";
+import dream from "./images/DreamCollegeAwaits.svg"
 import fire from "./config/fire";
 
 class Login extends Component {
@@ -91,22 +93,35 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <img src={logo} style={{width: '200px', paddingLeft: '80px',
+      paddingTop: '30px'}}></img>
+      <div>
+        <img src={title} style={{width: '300px'}}></img></div>
         <div>
+        <img src={dream} style={{width: '300px'}}></img></div>
+        <br></br>
+        <div style={{paddingLeft: '70px'}}>
+        <header>Username:</header>
           <input
             type="text"
             value={this.state.inputuser}
             onChange={this.changeInputHandlerUser}
           ></input>
         </div>
-        <div>
+        <br></br>
+        <div style={{paddingLeft: '70px'}}>
+          <header>Password:</header>
           <input
-            type="text"
+            type="password"
             value={this.state.inputpass}
             onChange={this.changeInputHandlerPass}
           ></input>
         </div>
+        <br></br>
+        <div style={{paddingLeft:'70px'}}>
         <button onClick={this.handleLoginClick}>Login</button>
         <button onClick={this.handleCreateAccountClick}>Create Account</button>
+        </div>
       </div>
     );
   }
