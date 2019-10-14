@@ -10,12 +10,6 @@ run in client directory
 npm start
 ```
 
-# Http Requests
-```bash
-/user - POST request.body(idToken from firebase.auth.signinwithEmailandPasword)
-	you will get back a student struct
-```
-
 # structs
 ```bash
 type student struct {
